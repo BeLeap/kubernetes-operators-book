@@ -31,10 +31,7 @@ spec:
             spec:
               type: object
               properties:
-                spec:
-                  type: object
-                  properties:
-                    size:
-                      type: integer
-                    version:
-                      type: string
+                size:
+                  type: integer
+                version:
+                  type: string
