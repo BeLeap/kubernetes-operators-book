@@ -1,0 +1,40 @@
+# $ kubectl create -f etcd-operator-deployment.yaml
+# deployment.apps/etcd-operator created
+#
+# $ kubectl get deployments
+# NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+# etcd-operator   0/1     1            0           6s
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: etcdoperator
+  name: etcd-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etcd-operator
+  template:
+    metadata:
+      labels:
+        app: etcd-operator
+    spec:
+      containers:
+        - name: etcd-operator
+          image: quay.io/coreos/etcd-operator:v0.9.4
+          command:
+            - etcd-operator
+            - --create-crd=false
+          env:
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          imagePullPolicy: IfNotPresent
+      serviceAccountName: etcd-operator-sa
