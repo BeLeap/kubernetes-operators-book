@@ -1,0 +1,12 @@
+# $ kubectl create -f etcd-operator-sa.yaml
+# serviceaccount/etcd-operator-sa created
+#
+# $ kubectl get sa
+# NAME               SECRETS   AGE
+# default            0         49m
+# etcd-operator-sa   0         25s
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: etcd-operator-sa
